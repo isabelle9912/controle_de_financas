@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("postgres://control_finance_9s7j_user:Y4YAhJgT326wnnJnbzaUCCxQLQrhZtiU@dpg-cnqishsf7o1s73cj54eg-a/control_finance_9s7j");
+const sequelize = new Sequelize("postgres://control_finance_iy4e_user:42ptrfU2jx9MDDwaIfHhtxrbWdBnIrwp@dpg-cnqju36n7f5s7387ssl0-a/control_finance_iy4e");
 
 try {
   sequelize.authenticate();
