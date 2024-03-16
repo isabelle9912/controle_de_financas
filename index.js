@@ -80,7 +80,7 @@ app.use("/deals", dealsRoutes);
 app.use("/", authRoutes);
 
 // Servidor e conexão com banco
-app.listen(3000);
+app.listen(port);
 conn
 .sync({force: true})
  //.sync()
