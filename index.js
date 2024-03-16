@@ -6,6 +6,7 @@ const FileStore = require("session-file-store")(session);
 const flash = require("express-flash");
 // Express
 const app = express();
+const port = process.env.PORT || 4000;
 const conn = require("./db/conn");
 
 // Models
