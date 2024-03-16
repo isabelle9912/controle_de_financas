@@ -1,12 +1,17 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("postgres://control_finance_iy4e_user:42ptrfU2jx9MDDwaIfHhtxrbWdBnIrwp@dpg-cnqju36n7f5s7387ssl0-a/control_finance_iy4e");
+const sequelize = new Sequelize("control_finance_59w0", "control_finance_59w0_user", "hCx67oP297zfcB5EJPDAmxlPJsi40ung", {
+  host: "dpg-cnqqp521hbls73dse8hg-a",
+  dialect: "postgres",
+});
 
-try {
-  sequelize.authenticate();
-  console.log("Conectado com o banco!");
-} catch (error) {
-  console.log(`Não foi possível conecta: ${error}`);
-}
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Conectado com o banco!");
+  } catch (error) {
+    console.error(`Não foi possível conectar: ${error}`);
+  }
+})();
 
 module.exports = sequelize;
