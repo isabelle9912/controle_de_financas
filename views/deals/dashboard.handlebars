@@ -1,0 +1,62 @@
+<!-- DASHBOARD -->
+<h1>Dashboard: {{selectedMonth}}/{{selectedYear}}</h1>
+<!-- Formulário para selecionar o mês e o ano -->
+<form
+  class="form-control"
+  action="/deals/dashboard/{{session.userid}}"
+  method="GET"
+>
+  <label for="month">Mês:</label>
+  <select class="form-select form-select-sm" name="month" id="month">
+    <option value="1">Janeiro</option>
+    <option value="2">Fevereiro</option>
+    <option value="3">Março</option>
+    <option value="4">Abril</option>
+    <option value="5">Maio</option>
+    <option value="6">Junho</option>
+    <option value="7">Julho</option>
+    <option value="8">Agosto</option>
+    <option value="9">Setembro</option>
+    <option value="10">Otubro</option>
+    <option value="11">Novembro</option>
+    <option value="12">Dezembro</option>
+    <!-- ADD OTHERS MONTHS HERE -->
+  </select>
+  <label for="year">Ano:</label>
+  <select class="form-select form-select-sm" name="year" id="year">
+    <option value="2023">2023</option>
+    <option value="2024">2024</option>
+    <option value="2025">2025</option>
+    <!-- ADD OTHERS YEARS HERE -->
+  </select>
+  <label for="category">Categoria:</label>
+  <select class="form-select form-select-sm" name="category" id="category">
+    <option value="Pessoal">Pessoal</option>
+    <option value="Profissonal">Profissonal</option>
+  </select>
+  <button class="btn btn-primary mt-2" type="submit">Filtrar</button>
+</form>
+<!-- SHOW THE DEALS WITH FILTER -->
+<h3>Total de entradas: R$ {{totalInputs}}</h3><h3>Total de saida: R$ {{totalOutputs}}</h3>
+{{#each deals}}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">{{this.title}}</h5>
+      <p class="card-text">Tipo: {{this.type}}</p>
+      <p class="card-text">Valor: R$ {{this.value}}</p>
+      <p class="card-text">Status: {{this.status}}</p>
+      <p class="card-text">Categoria: {{this.category}}</p>
+      <p class="card-text">Data: {{this.day}}/{{this.month}}/{{this.year}}</p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="/deals/edit/{{this.id}}"><button
+            class="btn btn-success mt-2"
+          >Editar</button></a>
+        <form action="/deals/remove/{{this.id}}" method="POST">
+          <button type="submit" class="btn btn-danger mt-2">Deletar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{{/each}}
+<a href="/deals/add"><button class="btn btn-success mb-4 justify-end">Add
+    transação</button></a>

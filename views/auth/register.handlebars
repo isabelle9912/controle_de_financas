@@ -1,0 +1,45 @@
+<!-- REGISTER -->
+<h1>Cadastrar novo Usuário</h1>
+<div class="card">
+  <div class="card-body">
+    <form action="/register" method="POST">
+      <label for="name">Nome: </label>
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        placeholder="Digite seu nome"
+        required
+      />
+      <label for="senha">Email: </label>
+      <input
+        type="email"
+        class="form-control"
+        name="email"
+        placeholder="Digite seu email"
+        required
+      />
+      <label for="senha">Senha: </label>
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        placeholder="Digite a senha"
+        required
+      />
+      <label for="senha">Repita sua senha: </label>
+      <input
+        type="password"
+        class="form-control"
+        name="password2"
+        placeholder="Confirme sua senha"
+        required
+      />
+      <button
+        class="btn btn-outline-success mt-3"
+        type="submit"
+      >Cadastrar</button>
+      <a class="nav-link active mt-2" aria-current="page" href="/login">Já tem conta?</a>
+    </form>
+  </div>
+</div>

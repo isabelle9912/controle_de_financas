@@ -1,0 +1,19 @@
+<!-- HOME -->
+{{#if session.userid}}
+  <div class="bg-light p-5 rounded-lg m-3">
+    <h1 class="display-4">Bem-vindo(a) ao Controle de Finanças</h1>
+    <p class="lead">Um lugar onde de confiança, onde você pode organizar sua vida financeira!</p>
+    <hr class="my-4" />
+    <p>Faça seu cadastro ou entre na sua conta e seja feliz, ou não : |</p>
+    <a class="btn btn-info btn-lg" href="/deals/dashboard/{{session.userid}}" role="button">Dashboard</a>
+  </div>
+{{else}}
+  <div class="bg-light p-5 rounded-lg m-3">
+    <h1 class="display-4">Bem-vindo ao Controle de Finanças</h1>
+    <p class="lead">Um lugar onde de confiança, onde você pode organizar sua vida financeira!</p>
+    <hr class="my-4" />
+    <p>Faça seu cadastro ou entre na sua conta e seja feliz, ou não : |</p>
+    <a class="btn btn-success btn-lg" href="/register" role="button">Cadastrar</a>
+    <a class="btn btn-primary btn-lg" href="/login" role="button">Entrar</a>
+  </div>
+{{/if}}  

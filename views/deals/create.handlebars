@@ -1,0 +1,112 @@
+<!-- CREATE -->
+<h1>Nova transação</h1>
+<form class="form-control" action="/deals/add" method="POST">
+  <!-- NAME -->
+  <div class="row mb-3">
+    <label for="title" class="col-sm-2 col-form-label">Nome</label>
+    <div class="col-sm-10">
+      <input
+        type="text"
+        class="form-control"
+        name="title"
+        placeholder="Nome da transação"
+      />
+    </div>
+  </div>
+  <!-- VALUE -->
+  <div class="row mb-3">
+    <label for="value" class="col-sm-2 col-form-label">Valor</label>
+    <div class="col-sm-10">
+      <input
+        type="number"
+        class="form-control"
+        name="value"
+        step="0.01"
+        placeholder="Use ponto para valores decimais"
+      />
+    </div>
+  </div>
+  <!-- DATE -->
+  <div class="row g-3 mb-3">
+    <label for="value" class="col-sm-2 col-form-label">Data</label>
+    <div class="col">
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Dia"
+        aria-label="First name"
+        name="day"
+      />
+    </div>
+    <div class="col">
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Mês"
+        aria-label="First name"
+        name="month"
+      />
+    </div>
+    <div class="col">
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Ano"
+        aria-label="First name"
+        name="year"
+      />
+    </div>
+  </div>
+  <!--  TYPE -->
+  <fieldset class="row mb-3">
+    <legend class="col-form-label col-sm-2 pt-0">Tipo</legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="type"
+          value="Saida"
+          checked
+        />
+        <label class="form-check-label" for="gridRadios1">Saida</label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="type"
+          value="Entrada"
+        />
+        <label class="form-check-label" for="gridRadios2">Entrada</label>
+      </div>
+    </div>
+  </fieldset>
+  <!-- CATEGORY -->
+  <fieldset class="row mb-3">
+    <legend class="col-form-label col-sm-2 pt-0">Categoria</legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="category"
+          value="Pessoal"
+          checked
+        />
+        <label class="form-check-label" for="gridRadios1">Pessoal</label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="category"
+          value="Profissional"
+        />
+        <label class="form-check-label" for="gridRadios2">Profissional</label>
+      </div>
+    </div>
+  </fieldset>
+  <!-- BUTTON -->
+  <button type="submit" class="btn btn-primary">Adicionar</button>
+</form>
