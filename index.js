@@ -81,8 +81,8 @@ app.use("/", authRoutes);
 // Servidor e conexão com banco
 app.listen(3000);
 conn
-//.sync({force: true})
-  .sync()
+.sync({force: true})
+ //.sync()
   .then()
   .catch((error) => {
     console.log(error);
