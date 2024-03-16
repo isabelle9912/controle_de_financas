@@ -8,7 +8,7 @@
 },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js dpg-cnqju36n7f5s7387ssl0-a 5432"
+    "start": "nodemon ./index.js dpg-cnqqp521hbls73dse8hg-a 5432"
   },
   "keywords": [],
   "author": "",
