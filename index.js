@@ -1,12 +1,16 @@
+//.env
+require('dotenv').config();
+const port = process.env.PORT || 5432;
+
 // Modulos
 const express = require("express");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
 const FileStore = require("session-file-store")(session);
 const flash = require("express-flash");
-// Express
+
+// Express Database
 const app = express();
-const port = process.env.PORT || 5432;
 const conn = require("./db/conn");
 
 // Models
@@ -82,8 +86,8 @@ app.use("/", authRoutes);
 // Servidor e conexão com banco
 app.listen(port);
 conn
-.sync({force: true})
- //.sync()
+//.sync({force: true})
+ .sync()
   .then()
   .catch((error) => {
     console.log(error);

@@ -1,8 +1,21 @@
+require("dotenv").config();
+const dbHost = process.env.PGHOST;
+const dbName = process.env.PGDATABASE;
+const dbUser = process.env.PGUSER;
+const dbPassword = process.env.PGPASSWORD;
+
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("control_finance_59w0", "control_finance_59w0_user", "hCx67oP297zfcB5EJPDAmxlPJsi40ung", {
-  host: "dpg-cnqqp521hbls73dse8hg-a",
+const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
+  host: dbHost,
   dialect: "postgres",
+  ssl: true,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // Para resolver erros de certificado SSL
+    },
+  },
 });
 
 (async () => {

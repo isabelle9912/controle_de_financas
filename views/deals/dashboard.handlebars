@@ -36,8 +36,11 @@
   </select>
   <button class="btn btn-primary mt-2" type="submit">Filtrar</button>
 </form>
+<a href="/deals/add"><button class="btn btn-success mb-4 justify-end">Add
+    transação</button></a>
 <!-- SHOW THE DEALS WITH FILTER -->
-<h3>Total de entradas: R$ {{totalInputs}}</h3><h3>Total de saida: R$ {{totalOutputs}}</h3>
+<h3>Total de entradas: R$ {{totalInputs}}</h3><h3>Total de saida: R$
+  {{totalOutputs}}</h3>
 {{#each deals}}
   <div class="card mb-4">
     <div class="card-body">
@@ -58,5 +61,3 @@
     </div>
   </div>
 {{/each}}
-<a href="/deals/add"><button class="btn btn-success mb-4 justify-end">Add
-    transação</button></a>
