@@ -1,6 +1,6 @@
 //.env
 require('dotenv').config();
-const port = process.env.PORT || 5432;
+const port = process.env.PORT || 8080;
 
 // Modulos
 const express = require("express");
@@ -61,8 +61,6 @@ app.use(
 
 // Flash messages
 app.use(flash());
-
-
 
 // Public path
 app.use(express.static("public"));

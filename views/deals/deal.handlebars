@@ -1,0 +1,23 @@
+<!-- DASHBOARD -->
+<div class="card">
+  <div class="card-body">
+    <h2>{{deal.title}}</h2>
+    <!-- Mostrar compra -->
+
+    <p class="card-text">Tipo: {{deal.type}}</p>
+    <p class="card-text">Valor: R$ {{deal.value}}</p>
+    <p class="card-text">Status: {{deal.status}}</p>
+    <p class="card-text">Categoria: {{deal.category}}</p>
+    <p class="card-text">Data: {{deal.day}}/{{deal.month}}/{{deal.year}}</p>
+
+    <!-- Interact -->
+    <div class="d-flex flex-row-reverse">
+      <a href="/deals/edit/{{deal.id}}"><button
+          class="btn btn-success mt-2"
+        >Editar</button></a>
+      <form action="/deals/remove/{{deal.id}}" method="POST">
+        <button type="submit" class="btn btn-danger mt-2">Deletar</button>
+      </form>
+    </div>
+  </div>
+</div>
