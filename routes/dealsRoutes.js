@@ -1,4 +1,4 @@
-// Modules for express and MVC 
+// Modules for express and MVC
 const express = require("express");
 const router = express.Router();
 const DealController = require("../controllers/DealController");
@@ -12,6 +12,9 @@ router.post("/remove/:id", checkAuth, DealController.removeDeal);
 router.get("/edit/:id", checkAuth, DealController.updateDeal);
 router.post("/edit", checkAuth, DealController.updateDealPost);
 router.get("/dashboard/:id", checkAuth, DealController.dashboard);
+router.get("/:id", checkAuth, DealController.removeAllDeal);
+router.get("/show/:id", checkAuth, DealController.showDeal);
 //router.get("/", DealController.showDeals);
+router.get("/grafico", DealController.showDealGrafic);
 
 module.exports = router;

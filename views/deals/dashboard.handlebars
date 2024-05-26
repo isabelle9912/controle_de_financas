@@ -1,63 +1,133 @@
 <!-- DASHBOARD -->
-<h1>Dashboard: {{selectedMonth}}/{{selectedYear}}</h1>
-<!-- Formulário para selecionar o mês e o ano -->
-<form
-  class="form-control"
-  action="/deals/dashboard/{{session.userid}}"
-  method="GET"
->
-  <label for="month">Mês:</label>
-  <select class="form-select form-select-sm" name="month" id="month">
-    <option value="1">Janeiro</option>
-    <option value="2">Fevereiro</option>
-    <option value="3">Março</option>
-    <option value="4">Abril</option>
-    <option value="5">Maio</option>
-    <option value="6">Junho</option>
-    <option value="7">Julho</option>
-    <option value="8">Agosto</option>
-    <option value="9">Setembro</option>
-    <option value="10">Otubro</option>
-    <option value="11">Novembro</option>
-    <option value="12">Dezembro</option>
-    <!-- ADD OTHERS MONTHS HERE -->
-  </select>
-  <label for="year">Ano:</label>
-  <select class="form-select form-select-sm" name="year" id="year">
-    <option value="2023">2023</option>
-    <option value="2024">2024</option>
-    <option value="2025">2025</option>
-    <!-- ADD OTHERS YEARS HERE -->
-  </select>
-  <label for="category">Categoria:</label>
-  <select class="form-select form-select-sm" name="category" id="category">
-    <option value="Pessoal">Pessoal</option>
-    <option value="Profissonal">Profissonal</option>
-  </select>
-  <button class="btn btn-primary mt-2" type="submit">Filtrar</button>
-</form>
-<a href="/deals/add"><button class="btn btn-success mb-4 justify-end">Add
-    transação</button></a>
-<!-- SHOW THE DEALS WITH FILTER -->
-<h3>Total de entradas: R$ {{totalInputs}}</h3><h3>Total de saida: R$
-  {{totalOutputs}}</h3>
-{{#each deals}}
-  <div class="card mb-4">
-    <div class="card-body">
-      <h5 class="card-title">{{this.title}}</h5>
-      <p class="card-text">Tipo: {{this.type}}</p>
-      <p class="card-text">Valor: R$ {{this.value}}</p>
-      <p class="card-text">Status: {{this.status}}</p>
-      <p class="card-text">Categoria: {{this.category}}</p>
-      <p class="card-text">Data: {{this.day}}/{{this.month}}/{{this.year}}</p>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="/deals/edit/{{this.id}}"><button
-            class="btn btn-success mt-2"
-          >Editar</button></a>
-        <form action="/deals/remove/{{this.id}}" method="POST">
-          <button type="submit" class="btn btn-danger mt-2">Deletar</button>
-        </form>
+<div class="card">
+  <div class="card-body">
+
+    <h2 class="">Minhas Transações</h2>
+    <div class="d-flex flex-row mb-3 mt-3 gap-5">
+      <!-- Mostrar Valores -->
+      <h4>Saldo: R$ {{totalInputs}}</h4>
+      <h4>Gastos: R$
+        {{totalOutputs}}
+      </h4>
+    </div>
+
+    {{#if selectedMonth}}
+      <div class="">
+        <p>Filtro aplicado para MÊS
+          <samp>{{selectedMonth}}</samp>
+          ANO
+          <samp>{{selectedYear}}</samp></p>
+      </div>
+    {{/if}}
+
+    <!-- Interações -->
+    <div class="d-flex flex-row mb-3 gap-3">
+      <!-- Button trigger modal -->
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#filterModal"
+        >Filtros
+        </button>
+      </div>
+      <!-- BUTTON DELETE ALL DEALS -->
+      <div>
+        <a href="/deals/{{session.userid}}">
+          <button class="btn btn-danger">Apagar todas</button>
+        </a>
+      </div>
+
+      <!-- ADD ONE DEAL -->
+      <div>
+        <a href="/deals/add"><button
+            class="btn btn-success mb-4 justify-end"
+          >Add transação</button></a>
+      </div>
+    </div>
+
+    <!-- Mostrar compras -->
+    {{#each deals}}
+      <a href="/deals/show/{{this.id}}"><div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p>Data: {{this.day}}/{{this.month}}/{{this.year}}</p>
+          </div>
+        </div>
+      </a>
+    {{/each}}
+
+    <!-- Modal Filter -->
+    <div
+      class="modal fade"
+      id="filterModal"
+      tabindex="-1"
+      aria-labelledby="filterModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="filterModalLabel">Filtros</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulário para selecionar o mês e o ano -->
+            <form
+              class="form-control"
+              action="/deals/dashboard/{{session.userid}}"
+              method="GET"
+            >
+              <label for="month">Mês:</label>
+              <select
+                class="form-select form-select-sm"
+                name="month"
+                id="month"
+              >
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
+                <option value="10">Otubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+                <!-- ADD OTHERS MONTHS HERE -->
+              </select>
+              <label for="year">Ano:</label>
+              <select class="form-select form-select-sm" name="year" id="year">
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <!-- ADD OTHERS YEARS HERE -->
+              </select>
+              <label for="category">Categoria:</label>
+              <select
+                class="form-select form-select-sm"
+                name="category"
+                id="category"
+              >
+                <option value="Pessoal">Pessoal</option>
+                <option value="Profissonal">Profissonal</option>
+              </select>
+              <button
+                class="btn btn-primary mt-2"
+                type="submit"
+              >Filtrar</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-{{/each}}
+</div>
