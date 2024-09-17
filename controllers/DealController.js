@@ -1,7 +1,8 @@
 // Modules for ORM and MODELS
-const { where } = require("sequelize");
+const { exec } = require("child_process");
+const path = require("path");
 const Deal = require("../models/Deal");
-const User = require("../models/User");
+import { formatarJson } from "utils/formatarDadosParaGrafico.py";
 
 module.exports = class DealController {
   //static async showDeals(req, res) {
@@ -9,8 +10,17 @@ module.exports = class DealController {
   //}
 
   static async showDealGrafic(req, res) {
-    const deals = Deal.findAll();
-    console.log(deals);
+    const id = Number(req.params.id);
+
+    const dealsData = await Deal.findAll({ where: { UserId: id } });
+
+    const mappedDeals = dealsData.map((deal) => deal.dataValues);
+
+    const formatDeals = formatarJson(mappedDeals);
+
+    print(formatDeals);
+
+    /* quero usar mappedDeals na funçao formatarJson */
   }
 
   static async showDeal(req, res) {
@@ -18,7 +28,7 @@ module.exports = class DealController {
 
     const deal = await Deal.findOne({ where: { id } });
 
-    console.log(deal.dataValues)
+    console.log(deal.dataValues);
 
     res.render("deals/deal", { deal: deal.dataValues });
   }
