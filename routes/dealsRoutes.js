@@ -15,6 +15,6 @@ router.get("/dashboard/:id", checkAuth, DealController.dashboard);
 router.get("/:id", checkAuth, DealController.removeAllDeal);
 router.get("/show/:id", checkAuth, DealController.showDeal);
 //router.get("/", DealController.showDeals);
-router.get("/grafico", DealController.showDealGrafic);
+router.get("/grafico/:id", DealController.showDealGrafic);
 
 module.exports = router;

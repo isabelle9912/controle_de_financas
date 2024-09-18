@@ -2,6 +2,7 @@
 const { where } = require("sequelize");
 const Deal = require("../models/Deal");
 const User = require("../models/User");
+const axios = require("axios");
 
 module.exports = class DealController {
   //static async showDeals(req, res) {
@@ -9,16 +10,56 @@ module.exports = class DealController {
   //}
 
   static async showDealGrafic(req, res) {
-    const deals = Deal.findAll();
-    console.log(deals);
+    const id = Number(req.params.id);
+
+    const dealsData = await Deal.findAll({ where: { UserId: id } });
+    const mappedDeals = dealsData.map((deal) => ({
+      month: deal.month,
+      value: deal.value,
+    }));
+
+    console.log("Dados enviados para o Flask:", mappedDeals); // Verificar estrutura dos dados
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/gerarGrafico",
+        mappedDeals
+      );
+
+      const imageBase64 = response.data.image;
+      res.render("graphic/graphicView", { grafico: imageBase64 });
+    } catch (error) {
+      console.error("Erro ao gerar gráfico:", error);
+      res.status(500).send("Erro ao gerar gráfico");
+    }
   }
+
+  /*   static async showDealGrafic(req, res) {
+    const id = Number(req.params.id);
+
+    try {
+      const dealsData = await Deal.findAll({ where: { UserId: id } });
+
+      const mappedDeals = dealsData.map((deal) => deal.dataValues);
+
+      // Chamar a API Python
+      const response = await axios.post(
+        "http://localhost:5000/formatarJson",
+        mappedDeals
+      );
+
+      res.status(200).json({ success: true, data: response.data });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  } */
 
   static async showDeal(req, res) {
     const id = Number(req.params.id);
 
     const deal = await Deal.findOne({ where: { id } });
 
-    console.log(deal.dataValues)
+    console.log(deal.dataValues);
 
     res.render("deals/deal", { deal: deal.dataValues });
   }
