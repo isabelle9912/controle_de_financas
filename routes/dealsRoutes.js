@@ -6,6 +6,7 @@ const DealController = require("../controllers/DealController");
 // helper
 const checkAuth = require("../helpers/auth").checkAuth;
 
+router.get("/garficoMes", DealController.gerarGraficoMes);
 router.get("/add", checkAuth, DealController.createDeal);
 router.post("/add", checkAuth, DealController.createDealSave);
 router.post("/remove/:id", checkAuth, DealController.removeDeal);

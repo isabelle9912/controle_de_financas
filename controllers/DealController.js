@@ -9,10 +9,54 @@ module.exports = class DealController {
   //  res.render("deals/home");
   //}
 
+  static async gerarGraficoMes(req, res) {
+    // Pegar o id do usuário logado
+    const id = Number(req.session.userid);
+    
+    // Obter o mês mandado pela url nas querys
+    const month = req.query.month;
+
+    // Faz requisição no data base com base no usuário logado e o mês
+    const dealsData = await Deal.findAll({ where: { UserId: id, month } });
+
+    // Formatando os dados
+    const mappedDeals = dealsData.map((deal) => ({
+      id: deal.id,
+      title: deal.title,
+      type: deal.type,
+      value: deal.value,
+      day: deal.day,
+      month: deal.month,
+      year: deal.year,
+      category: deal.category,
+    }));
+
+    // Ver os dado formatados
+    console.log("Dados enviados para o Flask:", mappedDeals);
+
+    try {
+      // Fazendo requisição na api python enviandos os dados do data base
+      const response = await axios.post(
+        "http://localhost:5000/GerarGraficoCategorias",
+        mappedDeals
+      );
+
+      // Obtendo os dados retornados pela api python
+      const imageBase64 = response.data.image;
+
+      // Enviando o código da imagem para a página
+      res.render("graphic/graphicMonth", { grafico: imageBase64 });
+    } catch (error) {
+      console.error("Erro ao gerar gráfico:", error);
+      res.status(500).send("Erro ao gerar gráfico");
+    }
+  }
+
   static async showDealGrafic(req, res) {
     const id = Number(req.params.id);
 
     const dealsData = await Deal.findAll({ where: { UserId: id } });
+
     const mappedDeals = dealsData.map((deal) => ({
       month: deal.month,
       value: deal.value,
