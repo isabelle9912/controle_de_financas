@@ -12,10 +12,10 @@ router.post("/add", checkAuth, DealController.createDealSave);
 router.post("/remove/:id", checkAuth, DealController.removeDeal);
 router.get("/edit/:id", checkAuth, DealController.updateDeal);
 router.post("/edit", checkAuth, DealController.updateDealPost);
-router.get("/dashboard/:id", checkAuth, DealController.dashboard);
-router.get("/:id", checkAuth, DealController.removeAllDeal);
+router.get("/dashboard", checkAuth, DealController.dashboard);
+router.get("/", checkAuth, DealController.removeAllDeal);
 router.get("/show/:id", checkAuth, DealController.showDeal);
 //router.get("/", DealController.showDeals);
-router.get("/grafico/:id", DealController.showDealGrafic);
+router.get("/grafico", DealController.showDealGrafic);
 
 module.exports = router;

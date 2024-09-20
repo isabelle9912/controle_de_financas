@@ -53,7 +53,7 @@ module.exports = class DealController {
   }
 
   static async showDealGrafic(req, res) {
-    const id = Number(req.params.id);
+    const id = Number(req.session.userid);
 
     const dealsData = await Deal.findAll({ where: { UserId: id } });
 
@@ -78,26 +78,6 @@ module.exports = class DealController {
     }
   }
 
-  /*   static async showDealGrafic(req, res) {
-    const id = Number(req.params.id);
-
-    try {
-      const dealsData = await Deal.findAll({ where: { UserId: id } });
-
-      const mappedDeals = dealsData.map((deal) => deal.dataValues);
-
-      // Chamar a API Python
-      const response = await axios.post(
-        "http://localhost:5000/formatarJson",
-        mappedDeals
-      );
-
-      res.status(200).json({ success: true, data: response.data });
-    } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
-    }
-  } */
-
   static async showDeal(req, res) {
     const id = Number(req.params.id);
 
@@ -110,7 +90,8 @@ module.exports = class DealController {
 
   // show the deals for one user
   static async dashboard(req, res) {
-    const id = Number(req.params.id);
+    const id = Number(req.session.userid);
+
     const { month, year, category } = req.query;
 
     try {
@@ -188,7 +169,7 @@ module.exports = class DealController {
       req.flash("message", "Transação adicionada com sucesso!");
 
       req.session.save(() => {
-        res.redirect(`/deals/dashboard/${deal.UserId}`);
+        res.redirect('/deals/dashboard');
       });
     } catch (error) {
       console.log("Aconteceu um erro: " + error);
@@ -226,7 +207,7 @@ module.exports = class DealController {
       .then(() => {
         req.flash("message", "Transação editada com sucesso!");
         req.session.save(() => {
-          res.redirect(`/deals/dashboard/${req.session.userid}`);
+          res.redirect('/deals/dashboard');
         });
       })
       .catch((error) => {
@@ -242,7 +223,7 @@ module.exports = class DealController {
       .then(() => {
         req.flash("message", "Transação removida com sucesso!");
         req.session.save(() => {
-          res.redirect(`/deals/dashboard/${req.session.userid}`);
+          res.redirect('/deals/dashboard');
         });
       })
       .catch((error) => {
@@ -251,7 +232,7 @@ module.exports = class DealController {
   }
 
   static removeAllDeal(req, res) {
-    const id = Number(req.params.id);
+    const id = Number(req.session.userid);
 
     Deal.destroy({ where: { UserId: id } })
       .then(() => {
@@ -260,12 +241,12 @@ module.exports = class DealController {
           "Todas as transações foram deletadas com sucesso!"
         );
         req.session.save(() => {
-          res.redirect(`/deals/dashboard/${req.session.userid}`);
+          res.redirect('/deals/dashboard');
         });
       })
       .catch((error) => {
         console.log("Aconteceu um erro: " + error);
-        res.redirect(`/deals/dashboard/${req.session.userid}`);
+        res.redirect('/deals/dashboard');
       });
   }
 };

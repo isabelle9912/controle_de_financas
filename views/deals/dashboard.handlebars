@@ -3,7 +3,7 @@
   <div class="card-body">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <a href="/deals/grafico/{{session.userid}}">
+      <a href="/deals/grafico">
         <button type="button" class="btn btn-info">Gráficos
         </button>
       </a>
@@ -45,7 +45,7 @@
       </div>
       <!-- BUTTON DELETE ALL DEALS -->
       <div>
-        <a href="/deals/{{session.userid}}">
+        <a href="/deals">
           <button class="btn btn-danger">Apagar todas</button>
         </a>
       </div>
@@ -92,7 +92,7 @@
             <!-- Formulário para selecionar o mês e o ano -->
             <form
               class="form-control"
-              action="/deals/dashboard/{{session.userid}}"
+              action="/deals/dashboard"
               method="GET"
             >
               <label for="month">Mês:</label>
