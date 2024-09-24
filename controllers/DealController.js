@@ -12,7 +12,7 @@ module.exports = class DealController {
   static async gerarGraficoMes(req, res) {
     // Pegar o id do usuário logado
     const id = Number(req.session.userid);
-    
+
     // Obter o mês mandado pela url nas querys
     const month = req.query.month;
 
@@ -169,7 +169,7 @@ module.exports = class DealController {
       req.flash("message", "Transação adicionada com sucesso!");
 
       req.session.save(() => {
-        res.redirect('/deals/dashboard');
+        res.redirect("/deals/dashboard");
       });
     } catch (error) {
       console.log("Aconteceu um erro: " + error);
@@ -207,7 +207,7 @@ module.exports = class DealController {
       .then(() => {
         req.flash("message", "Transação editada com sucesso!");
         req.session.save(() => {
-          res.redirect('/deals/dashboard');
+          res.redirect("/deals/dashboard");
         });
       })
       .catch((error) => {
@@ -223,7 +223,7 @@ module.exports = class DealController {
       .then(() => {
         req.flash("message", "Transação removida com sucesso!");
         req.session.save(() => {
-          res.redirect('/deals/dashboard');
+          res.redirect("/deals/dashboard");
         });
       })
       .catch((error) => {
@@ -241,12 +241,12 @@ module.exports = class DealController {
           "Todas as transações foram deletadas com sucesso!"
         );
         req.session.save(() => {
-          res.redirect('/deals/dashboard');
+          res.redirect("/deals/dashboard");
         });
       })
       .catch((error) => {
         console.log("Aconteceu um erro: " + error);
-        res.redirect('/deals/dashboard');
+        res.redirect("/deals/dashboard");
       });
   }
 };

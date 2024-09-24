@@ -7,10 +7,9 @@
         <button type="button" class="btn btn-info">Gráficos
         </button>
       </a>
-      <a href="/deals/graficoMes"></a>
-        <button type="button" class="btn btn-info">Gráfico mes
-        </button>
-     </a>
+      <a href="/deals/graficoMes?month=6">
+        <button type="button" class="btn btn-info">Gráfico mês</button>
+      </a>
     </div>
 
     <h2 class="">Minhas Transações</h2>
@@ -90,11 +89,7 @@
           </div>
           <div class="modal-body">
             <!-- Formulário para selecionar o mês e o ano -->
-            <form
-              class="form-control"
-              action="/deals/dashboard"
-              method="GET"
-            >
+            <form class="form-control" action="/deals/dashboard" method="GET">
               <label for="month">Mês:</label>
               <select
                 class="form-select form-select-sm"
