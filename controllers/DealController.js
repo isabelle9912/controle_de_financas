@@ -2,25 +2,76 @@
 const { exec } = require("child_process");
 const path = require("path");
 const Deal = require("../models/Deal");
-import { formatarJson } from "utils/formatarDadosParaGrafico.py";
+const User = require("../models/User");
+const axios = require("axios");
 
 module.exports = class DealController {
   //static async showDeals(req, res) {
   //  res.render("deals/home");
   //}
 
+  static async gerarGraficoMes(req, res) {
+    // Pegar o id do usuário logado
+    const id = Number(req.session.userid);
+
+    // Obter o mês mandado pela url nas querys
+    const month = req.query.month;
+
+    // Faz requisição no data base com base no usuário logado e o mês
+    const dealsData = await Deal.findAll({ where: { UserId: id, month } });
+
+    // Formatando os dados
+    const mappedDeals = dealsData.map((deal) => ({
+      type: deal.type,
+      value: deal.value,
+      category: deal.category,
+    }));
+
+    // Ver os dado formatados
+    console.log("Dados enviados para o Flask:", mappedDeals);
+
+    try {
+      // Fazendo requisição na api python enviandos os dados do data base
+      const response = await axios.post(
+        "http://localhost:5000/gerarGrafico?type_graph=barra&title_graph=Categorias",
+        mappedDeals
+      );
+
+      // Obtendo os dados retornados pela api python
+      const imageBase64 = response.data.image;
+
+      // Enviando o código da imagem para a página
+      res.render("graphic/graphicMonth", { grafico: imageBase64 });
+    } catch (error) {
+      console.error("Erro ao gerar gráfico:", error);
+      res.status(500).send("Erro ao gerar gráfico");
+    }
+  }
+
   static async showDealGrafic(req, res) {
-    const id = Number(req.params.id);
+    const id = Number(req.session.userid);
 
     const dealsData = await Deal.findAll({ where: { UserId: id } });
 
-    const mappedDeals = dealsData.map((deal) => deal.dataValues);
+    const mappedDeals = dealsData.map((deal) => ({
+      month: deal.month,
+      value: deal.value,
+    }));
 
-    const formatDeals = formatarJson(mappedDeals);
+    console.log("Dados enviados para o Flask:", mappedDeals); // Verificar estrutura dos dados
 
-    print(formatDeals);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/gerarGrafico",
+        mappedDeals
+      );
 
-    /* quero usar mappedDeals na funçao formatarJson */
+      const imageBase64 = response.data.image;
+      res.render("graphic/graphicView", { grafico: imageBase64 });
+    } catch (error) {
+      console.error("Erro ao gerar gráfico:", error);
+      res.status(500).send("Erro ao gerar gráfico");
+    }
   }
 
   static async showDeal(req, res) {
@@ -35,7 +86,8 @@ module.exports = class DealController {
 
   // show the deals for one user
   static async dashboard(req, res) {
-    const id = Number(req.params.id);
+    const id = Number(req.session.userid);
+
     const { month, year, category } = req.query;
 
     try {
@@ -113,7 +165,7 @@ module.exports = class DealController {
       req.flash("message", "Transação adicionada com sucesso!");
 
       req.session.save(() => {
-        res.redirect(`/deals/dashboard/${deal.UserId}`);
+        res.redirect("/deals/dashboard");
       });
     } catch (error) {
       console.log("Aconteceu um erro: " + error);
@@ -151,7 +203,7 @@ module.exports = class DealController {
       .then(() => {
         req.flash("message", "Transação editada com sucesso!");
         req.session.save(() => {
-          res.redirect(`/deals/dashboard/${req.session.userid}`);
+          res.redirect("/deals/dashboard");
         });
       })
       .catch((error) => {
@@ -167,7 +219,7 @@ module.exports = class DealController {
       .then(() => {
         req.flash("message", "Transação removida com sucesso!");
         req.session.save(() => {
-          res.redirect(`/deals/dashboard/${req.session.userid}`);
+          res.redirect("/deals/dashboard");
         });
       })
       .catch((error) => {
@@ -176,7 +228,7 @@ module.exports = class DealController {
   }
 
   static removeAllDeal(req, res) {
-    const id = Number(req.params.id);
+    const id = Number(req.session.userid);
 
     Deal.destroy({ where: { UserId: id } })
       .then(() => {
@@ -185,12 +237,12 @@ module.exports = class DealController {
           "Todas as transações foram deletadas com sucesso!"
         );
         req.session.save(() => {
-          res.redirect(`/deals/dashboard/${req.session.userid}`);
+          res.redirect("/deals/dashboard");
         });
       })
       .catch((error) => {
         console.log("Aconteceu um erro: " + error);
-        res.redirect(`/deals/dashboard/${req.session.userid}`);
+        res.redirect("/deals/dashboard");
       });
   }
 };

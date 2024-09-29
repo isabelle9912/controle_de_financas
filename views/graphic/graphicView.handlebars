@@ -1,0 +1,16 @@
+<h1>Gráfico Gerado</h1>
+{{#if grafico}}
+  <img
+    class="img-fluid"
+    src="data:image/png;base64,{{grafico}}"
+    alt="Gráfico Gerado"
+  />
+{{else}}
+  <p>Gráfico não disponível.</p>
+{{/if}}
+
+<a href="/deals/dashboard">
+  <button type="button" class="btn btn-primary">
+    <i class="bi bi-arrow-left"></i> Voltar
+  </button>
+</a>

@@ -2,6 +2,18 @@
 <div class="card">
   <div class="card-body">
 
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <!--
+        <a href="/deals/grafico">
+          <button type="button" class="btn btn-info">Gráficos
+          </button>
+        </a>
+      -->
+      <a href="/deals/graficoMes?month=9">
+        <button type="button" class="btn btn-info">Gráfico mês</button>
+      </a>
+    </div>
+
     <h2 class="">Minhas Transações</h2>
     <div class="d-flex flex-row mb-3 mt-3 gap-5">
       <!-- Mostrar Valores -->
@@ -34,7 +46,7 @@
       </div>
       <!-- BUTTON DELETE ALL DEALS -->
       <div>
-        <a href="/deals/{{session.userid}}">
+        <a href="/deals">
           <button class="btn btn-danger">Apagar todas</button>
         </a>
       </div>
@@ -79,11 +91,7 @@
           </div>
           <div class="modal-body">
             <!-- Formulário para selecionar o mês e o ano -->
-            <form
-              class="form-control"
-              action="/deals/dashboard/{{session.userid}}"
-              method="GET"
-            >
+            <form class="form-control" action="/deals/dashboard" method="GET">
               <label for="month">Mês:</label>
               <select
                 class="form-select form-select-sm"
