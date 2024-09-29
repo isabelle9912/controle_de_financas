@@ -21,13 +21,8 @@ module.exports = class DealController {
 
     // Formatando os dados
     const mappedDeals = dealsData.map((deal) => ({
-      id: deal.id,
-      title: deal.title,
       type: deal.type,
       value: deal.value,
-      day: deal.day,
-      month: deal.month,
-      year: deal.year,
       category: deal.category,
     }));
 
@@ -37,7 +32,7 @@ module.exports = class DealController {
     try {
       // Fazendo requisição na api python enviandos os dados do data base
       const response = await axios.post(
-        "http://localhost:5000/GerarGraficoCategorias",
+        "http://localhost:5000/gerarGrafico?type_graph=barra&title_graph=Categorias",
         mappedDeals
       );
 
