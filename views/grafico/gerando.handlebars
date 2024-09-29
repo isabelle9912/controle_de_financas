@@ -1,0 +1,13 @@
+{{!-- {{#each deals}}
+  <p>{{this.title}}</p>
+{{/each}} --}}
+
+{{#each deals}}
+  <a href="/deals/show/{{this.id}}"><div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">{{this.title}}</h5>
+        <p>Data: {{this.day}}/{{this.month}}/{{this.year}}</p>
+      </div>
+    </div>
+  </a>
+{{/each}}

@@ -1,5 +1,6 @@
 // Modules for ORM and MODELS
-const { where } = require("sequelize");
+const { exec } = require("child_process");
+const path = require("path");
 const Deal = require("../models/Deal");
 const User = require("../models/User");
 const axios = require("axios");
