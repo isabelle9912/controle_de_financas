@@ -11,10 +11,14 @@ const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
   dialect: "postgres",
   ssl: true,
   dialectOptions: {
+    /*
     ssl: {
       require: true,
       rejectUnauthorized: false, // Para resolver erros de certificado SSL
     },
+    
+    */
+    ssl: false, // Desabilita SSL
   },
 });
 
