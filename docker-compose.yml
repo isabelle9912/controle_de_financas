@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:15
+    container_name: financial_db
+    restart: always
+    environment:
+      POSTGRES_USER: seu-usuario
+      POSTGRES_PASSWORD: sua-senha
+      POSTGRES_DB: nome-do-banco
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: financial_app
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=seu-usuario
+      - DB_PASS=sua-senha
+      - DB_NAME=nome-do-banco
+      - DB_PORT=5432
+    volumes:
+      - .:/app
+    command: sh -c "npm install && node index.js"
+
+volumes:
+  pgdata:
