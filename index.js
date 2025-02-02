@@ -1,6 +1,6 @@
 //.env
-require('dotenv').config();
-const port = process.env.PORT || 8080;
+require("dotenv").config();
+const port = process.env.PORT || 3000;
 
 // Modulos
 const express = require("express");
@@ -84,8 +84,8 @@ app.use("/", authRoutes);
 // Servidor e conexão com banco
 app.listen(port);
 conn
-//.sync({force: true})
- .sync()
+  //.sync({force: true})
+  .sync()
   .then()
   .catch((error) => {
     console.log(error);
